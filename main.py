@@ -73,6 +73,9 @@ class ChatResponse(BaseModel):
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
+@app.get("/ui")
+def serve_chat():
+    return FileResponse("chat.html")
 @app.get("/health")
 def health_check():
     """

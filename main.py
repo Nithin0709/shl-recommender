@@ -5,11 +5,15 @@ FastAPI server. Exposes GET /health and POST /chat as required by the assignment
 Run with: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 """
 
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, field_validator
 
 from agent import chat
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ── App setup ─────────────────────────────────────────────────────────────────
 app = FastAPI(
@@ -73,9 +77,6 @@ class ChatResponse(BaseModel):
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
-@app.get("/ui")
-def serve_chat():
-    return FileResponse("chat.html")
 @app.get("/health")
 def health_check():
     """
